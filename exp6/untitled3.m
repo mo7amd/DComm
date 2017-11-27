@@ -23,7 +23,7 @@ for index=1:size(b,2)
  NRZ_out=[NRZ_out [1 1 1 1 1 1 1 1 1 1]*(-Vp)];
  end
 end
-disp(NRZ_out);
+disp(length(NRZ_out));
 %Now we draw the PSD spectrum of Bipolar NRZ-L using Welch PSD
 %estimation method
 h = spectrum.welch;

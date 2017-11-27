@@ -1,4 +1,5 @@
 function plotSignal(signal, time, i, bitStream)
+    figure(1);
     subplot(6,1,i);
     plot(time,signal,'LineWidth',2.5);
 %     text(bit-0.5, pulse+2, num2str(bitStream(bit)), ...

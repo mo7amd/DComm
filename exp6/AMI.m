@@ -1,10 +1,12 @@
-function [modSignal] = AMI( bitStream )
+function AMI( bitStream )
     bitStream(length(bitStream)+1)=0;
-    ami=-1;
-
-    for n=1:(length(bitStream)-1)
-        t=n-1:0.001:n;
     
+    ami=-1;
+    modSignal = [];
+    time = [];
+    
+    for n=1:(length(bitStream)-1)
+        t=n-1:0.1:n;
         if bitStream(n) == 0
             if bitStream(n+1)==0  
                 y=(t>n);
@@ -15,11 +17,6 @@ function [modSignal] = AMI( bitStream )
                     y=(t==n);
                 end
             end
-            d=plot(t,y);
-            grid on;
-            set(d,'LineWidth',2.5);
-            hold on;
-            axis([0 length(bitStream)-1 -1 1]);
         else
             ami=ami*-1;
             if bitStream(n+1)==0
@@ -34,13 +31,11 @@ function [modSignal] = AMI( bitStream )
                 else
                     y=-(t<n)+(t==n);
                 end
-
             end
-            d=plot(t,y);
-            grid on;
-            set(d,'LineWidth',2.5);
-            hold on;
-            axis([0 length(bitStream)-1 -1 1]);
         end
+        modSignal = [modSignal y];
+        time = [time t];
     end
+    plotSignal(modSignal, time, 4, bitStream);
+    plotPSD(modSignal, time, 4, bitStream);
 end

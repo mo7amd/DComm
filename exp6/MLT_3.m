@@ -1,12 +1,14 @@
-function [modSignal] = MLT_3( bitStream )
+function MLT_3( bitStream )
     
     bitStream(length(bitStream)+1)=0;
     pulse=5;
     current_level = 0;
     last_level = -pulse;
     
+    modSignal = [];
+    time = [];
     for bit=1:length(bitStream)
-       t=bit-1:0.001:bit;
+       t=bit-1:0.1:bit;
        if bitStream( bit ) == 0
            y = (t<bit) * current_level;
        else
@@ -35,16 +37,9 @@ function [modSignal] = MLT_3( bitStream )
             % bitstream end, assume next bit is 1
             y(end) = -current_level;
         end
-        % draw pulse and label
-        plot(t, y, 'LineWidth', 2.5);
-        text(bit-0.5, pulse+1, num2str(bitStream(bit)),'FontWeight', 'bold')
-        hold on;
+        modSignal = [modSignal y];
+        time = [time t];
     end
-    
-    % draw grid
-    grid on;
-    axis([0 length(bitStream) -pulse*2 pulse*2]);
-    set(gca,'YTick', [-pulse 0 pulse])
-    set(gca,'XTick', 1:length(bitStream))
-    set(gca,'XTickLabel', '')
+    plotSignal(modSignal, time, 6, bitStream);
+    plotPSD(modSignal, time, 6, bitStream);
 end

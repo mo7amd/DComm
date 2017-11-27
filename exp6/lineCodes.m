@@ -6,13 +6,13 @@ function lineCodes( size )
     % 1- Non-return to zero:
     NRZ( bitStream )
     % 2- Non-return to zero inverted: 
-%     NRZI( bitStream );
+    NRZI( bitStream );
     % 3- return to zero:
-%     RZ( bitStream );
+    RZ( bitStream );
     % 4- AMI:
-%     AMI( bitStream )
+    AMI( bitStream )
     % 5- manchester:
-%     manchester( bitStream );
+    manchester( bitStream );
     % 6- multi-level Transmission:
-%     MLT_3( bitStream );
+    MLT_3( bitStream );
 end

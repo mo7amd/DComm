@@ -1,4 +1,4 @@
-function [modSignal] = manchester( bitStream )
+function manchester( bitStream )
     
     bitStream=~bitStream;
     bitStream(length(bitStream)+1)=1;
@@ -6,7 +6,7 @@ function [modSignal] = manchester( bitStream )
     time = [];
     
     for n=1:(length(bitStream)-1)
-        t=n-1:0.001:n;
+        t=n-1:0.1:n;
         if bitStream(n) == 0
             if bitStream(n+1)==0  
                 y=-(t<n)+2*(t<n-0.5)+1*(t==n);
@@ -23,11 +23,6 @@ function [modSignal] = manchester( bitStream )
         modSignal = [modSignal y];
         time = [time t];
     end
-%     plotSignal(modSignal,time,5,bitStream);
-    h = spectrum.welch; 
-    Hpsd=psd(h,modSignal,'Fs',40);
-    figure;
-    hold on;
-    handle1=plot(Hpsd);
-    set(handle1,'LineWidth',2.5,'Color','r');
+    plotSignal(modSignal, time, 5, bitStream);
+    plotPSD(modSignal, time, 5, bitStream);
 end

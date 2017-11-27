@@ -1,7 +1,7 @@
-function [modSignal,time] = NRZI( bitStream )
+function NRZI( bitStream )
     time = [];
     modSignal = [];
-    Hpsd=[];
+    
     % pulse height
     pulse = 1;
 
@@ -11,7 +11,7 @@ function [modSignal,time] = NRZI( bitStream )
 
     for bit = 1:length(bitStream)
         % set bit time
-        t=bit-1:0.001:bit;
+        t=bit-1:0.1:bit;
 
         if bitStream(bit) == 0
             % binary 0 - keep previous level
@@ -35,12 +35,7 @@ function [modSignal,time] = NRZI( bitStream )
         end
         time= [time t];
         modSignal= [modSignal y];
-        h = spectrum.welch;
-        Hpsd=psd(h,y,'fs',20)
     end
-    plotSignal(modSignal,time,2,bitStream);
-    figure;
-    hold on;
-    handle1=plot(Hpsd);
-    set(handle1,'LineWidth',2.5,'Color','r')
+    plotSignal(modSignal, time, 2, bitStream);
+    plotPSD(modSignal, time, 2, bitStream);
 end
