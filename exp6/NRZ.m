@@ -7,7 +7,7 @@ function NRZ( bitStream )
     for n=1:(length(bitStream)-1)
     %   set time sample
     %   Ts = 0.001
-        t=n-1:0.1:n;
+        t=n-1:0.001:n;
         if bitStream(n) == 0
             if bitStream(n+1)==0  
                 y=(t>n)+0;
@@ -26,6 +26,6 @@ function NRZ( bitStream )
         time=[time t];
         modSignal=[modSignal y];
     end
-    plotSignal(modSignal, time, 1, bitStream);
+    plotSignal(modSignal, time, 1, bitStream,'NRZ');
     plotPSD(modSignal, time, 1, bitStream);
 end

@@ -11,7 +11,7 @@ function NRZI( bitStream )
 
     for bit = 1:length(bitStream)
         % set bit time
-        t=bit-1:0.1:bit;
+        t=bit-1:0.001:bit;
 
         if bitStream(bit) == 0
             % binary 0 - keep previous level
@@ -36,6 +36,7 @@ function NRZI( bitStream )
         time= [time t];
         modSignal= [modSignal y];
     end
-    plotSignal(modSignal, time, 2, bitStream);
+    %     plot the signal and PSD
+    plotSignal(modSignal, time, 2, bitStream,'NRZI');
     plotPSD(modSignal, time, 2, bitStream);
 end
